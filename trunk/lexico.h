@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+
 #include "fila.h"
 
 //Tipos de Tokens
