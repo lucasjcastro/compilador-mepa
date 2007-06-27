@@ -1,6 +1,9 @@
 //Douglas Schmidt
 //este include ja possui as bibliotecas stdio.h, ctype.h e string.h
 #include "lexico.h"
+#include "TokenListNode.h"
+#include <list>
+#include <string>
 
 int main(int argc, char **argv)
 {
@@ -21,9 +24,15 @@ int main(int argc, char **argv)
 	}
 
 	//fila de tokens
-	struct Fila *tokens;
+	struct Fila *tokens;	
 	inicializarFila(&tokens);
 	int ntokens = 0;
+	
+	//lista de tokens
+	std::list< TokenListNode >
+	tokenList;
+	
+	TokenListNode tmpTokenListNode;
 
 	//analise lexica
 	if (analiseLexica(entrada, tokens) == ERRO)
@@ -75,6 +84,10 @@ int main(int argc, char **argv)
                 case INTEIRO:
 					printf("%d,%d:\tInteiro:\t%d\n",
 					proximo.linha, proximo.coluna, proximo.valor);
+					
+					tmpTokenListNode.setTokenType("numero");
+					tmpTokenListNode.setTokenValue(proximo.valor);
+					
 					break;
 				case IDENTIFICADOR:
 					printf("%d,%d:\tIdentificador:\t%s\n",
