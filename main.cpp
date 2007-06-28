@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 	std::list< TokenListNode >
 	tokenList;
 	
-	TokenListNode tmpTokenListNode;
+	TokenListNode auxTokenListNode;
 
 	//analise lexica
 	if (analiseLexica(entrada, tokens) == ERRO)
@@ -85,30 +85,56 @@ int main(int argc, char **argv)
 					printf("%d,%d:\tInteiro:\t%d\n",
 					proximo.linha, proximo.coluna, proximo.valor);
 					
-					tmpTokenListNode.setTokenType("numero");
-					tmpTokenListNode.setTokenValue(proximo.valor);
+					/* Construcao da Lista de Tokens */
+					auxTokenListNode.setTokenType( _NUMERO );
+					auxTokenListNode.setTokenValue(proximo.valor);
+					auxTokenListNode.setLine(proximo.linha);
 					
 					break;
 				case IDENTIFICADOR:
 					printf("%d,%d:\tIdentificador:\t%s\n",
 					proximo.linha, proximo.coluna, proximo.nome);
+					
+					/* Construcao da Lista de Tokens */
+					auxTokenListNode.setTokenType( _IDENTIFICADOR );
+					auxTokenListNode.setTokenValue(proximo.nome);
+					auxTokenListNode.setLine(proximo.linha);
+					
 					free(proximo.nome);
 					break;
 				case PAL_RESERVADA:
 					printf("%d,%d:\tPal. reservada:\t%s\n",
 					proximo.linha, proximo.coluna, reservadas[proximo.valor]);
+					
+					/* Construcao da Lista de Tokens */
+					auxTokenListNode.setTokenType( _PAL_RESERVADA );
+					auxTokenListNode.setTokenValue(reservadas[proximo.valor]);
+					auxTokenListNode.setLine(proximo.linha);
+					
 					break;
 				case SIMBOLO:
 					printf("%d,%d:\tSimbolo:\t%s\n",
 					proximo.linha, proximo.coluna, simbolos[proximo.valor]);
+					
+					/* Construcao da Lista de Tokens */
+					
 					break;
 				case SIMBOLO_COMP:
 					printf("%d,%d:\tSim. composto:\t%s\n",
 					proximo.linha, proximo.coluna, simbolos[proximo.valor]);
+					
+					/* Construcao da Lista de Tokens */
+					
 					break;
 				case BOLEANO:
 					printf("%d,%d:\tBooleano:\t%s\n",
 					proximo.linha, proximo.coluna, reservadas[proximo.valor]);
+					
+					/* Construcao da Lista de Tokens */
+					auxTokenListNode.setTokenType( _BOLEANO );
+					auxTokenListNode.setTokenValue(reservadas[proximo.valor]);
+					auxTokenListNode.setLine(proximo.linha);
+					
 					break;
 				case IGNORA:
 					ntokens--;

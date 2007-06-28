@@ -12,12 +12,12 @@ TokenListNode::~TokenListNode()
 			
 			/* Token type */
 			void
-			TokenListNode::setTokenType(std::string tokenType)
+			TokenListNode::setTokenType(TokenType settingTT)
 			{
-				this->mTokenType = tokenType;
+				this->mTokenType = settingTT;
 			}	
 					
-			std::string
+			TokenType
 			TokenListNode::getTokenType()
 			{
 				return (this->mTokenType);
