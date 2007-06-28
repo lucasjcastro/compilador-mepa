@@ -28,6 +28,7 @@ HashNode IdentHash::search( char* key ) {
             return *it;
         }
     }
+    
     HashNode null;
     // retorna nulo caso a busca tenha falhado
     return null;
