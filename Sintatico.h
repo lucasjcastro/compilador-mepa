@@ -7,8 +7,11 @@ class Sintatico
 {
 	private:
 	
-		//Arvore Sintática
-		//Noh de Arvore sintática*;
+		//ASA
+		//asa;
+		
+		//NohASA
+		//nohASA;
 		
 		TokenListNode
 		currentToken;
