@@ -2,6 +2,7 @@
 #define SINTATICO_H_
 
 #include "TokenListNode.h"
+#include <list>
 
 class Sintatico
 {
@@ -13,18 +14,22 @@ class Sintatico
 		//NohASA
 		//nohASA;
 		
+		std::list<TokenListNode>
+		lexTokenList;
+		
 		TokenListNode
 		currentToken;
 				
 		TokenListNode
-		aheadToken;
+		aheadToken;		
 		
 		void
 		nextToken();
 		
 		void
-		spyNextToken();
+		spyToken();
 	
+		/* Producoes */
 		void
         programa();
         
@@ -130,11 +135,6 @@ class Sintatico
         bool
         letra();
         
-        void
-        proximo();
-        
-        void
-        olhaProximo();
         
 	public:
 	
@@ -143,8 +143,7 @@ class Sintatico
 		Sintatico();
 		
 		virtual
-		~Sintatico();
-	
+		~Sintatico();	
 
 };
 
