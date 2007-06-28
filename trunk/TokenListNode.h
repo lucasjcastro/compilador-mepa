@@ -9,13 +9,16 @@
  * Lista Ligadao de Tokens que o analisador léxico pas-
  * sara para o analisador sintático.
  */
+ 
+enum TokenType{ _NUMERO, _IDENTIFICADOR, _OP_LOGICO, _OP_RELACIONAL,
+	_OP_ARITMETICO, _BOLEANO, _PAL_RESERVADA, _PONTUACAO, _SIMBOLOS };
 
 class TokenListNode
 {
 	
 	private:
 	
-		std::string
+		TokenType
 		mTokenType;
 		
 		std::string  
@@ -39,9 +42,9 @@ class TokenListNode
 			
 			/* Token type */
 			void
-			setTokenType(std::string tokenType);	
+			setTokenType(TokenType settingTT);	
 					
-			std::string
+			TokenType
 			getTokenType();			
 			
 			/* Token Value */

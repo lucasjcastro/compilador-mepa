@@ -6,7 +6,8 @@
 
 #include "fila.h"
 
-//Tipos de Tokens
+//Tipos de Tokens 
+
 #define INTEIRO			0
 #define IDENTIFICADOR	1
 #define PAL_RESERVADA	2
@@ -16,6 +17,7 @@
 #define ERRO			6
 #define TERMINO			7
 #define IGNORA			8
+
 
 //booleanos
 #define TRUE			1
@@ -29,7 +31,7 @@
 #define ERRO_SIMBOLO_INV	2
 
 //quantidade de simbolos
-#define N_SIMBOLOS		18
+#define N_SIMBOLOS		17
 
 //quantidade de palavras reservadas
 #define N_RESERVADAS	25
@@ -46,8 +48,7 @@ FILE *arquivo;
 int linha, coluna;
 
 //Simbolos
-const char *simbolos[] = {"-",".",",",";","(",")",":","=","<>","<",">","+","*",
-"/","[","]",":=",".."};
+const char *simbolos[] = {"-",".",",",";","(",")",":","=","<>","<",">","+","*","[","]",":=",".."};
 
 //Palavras reservadas
 const char *reservadas[] = {"false", "true", "program", "begin", "end", "label",
