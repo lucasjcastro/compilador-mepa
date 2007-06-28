@@ -31,7 +31,7 @@
 #define ERRO_SIMBOLO_INV	2
 
 //quantidade de simbolos
-#define N_SIMBOLOS		17
+#define N_SIMBOLOS		19
 
 //quantidade de palavras reservadas
 #define N_RESERVADAS	25
@@ -48,7 +48,7 @@ FILE *arquivo;
 int linha, coluna;
 
 //Simbolos
-const char *simbolos[] = {"-",".",",",";","(",")",":","=","<>","<",">","+","*","[","]",":=",".."};
+const char *simbolos[] = {"-",".",",",";","(",")",":","=","<>","<","<=",">=",">","+","*","[","]",":=",".."};
 
 //Palavras reservadas
 const char *reservadas[] = {"false", "true", "program", "begin", "end", "label",

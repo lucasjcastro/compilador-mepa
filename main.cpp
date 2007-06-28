@@ -107,9 +107,20 @@ int main(int argc, char **argv)
 					proximo.linha, proximo.coluna, reservadas[proximo.valor]);
 					
 					/* Construcao da Lista de Tokens */
-					auxTokenListNode.setTokenType( _PAL_RESERVADA );
+					/* Se for or, and ou not, tipo eh op_LOGICO */
+					if ( (strcmp(reservadas[proximo.valor], reservadas[17]) == 0 ) || // or
+						 (strcmp(reservadas[proximo.valor], reservadas[18]) == 0 ) || // and
+						 (strcmp(reservadas[proximo.valor], reservadas[20]) == 0 ) )  // not
+						  	auxTokenListNode.setTokenType( _OP_LOGICO );
+						  	/* Se for div eh op_aritmetico */
+							else if (strcmp(reservadas[proximo.valor], reservadas[19]) == 0 ) // div
+						 			auxTokenListNode.setTokenType( _OP_ARITMETICO );
+						 			else
+						 				auxTokenListNode.setTokenType( _PAL_RESERVADA );
+							
 					auxTokenListNode.setTokenValue(reservadas[proximo.valor]);
 					auxTokenListNode.setLine(proximo.linha);
+						 
 					
 					break;
 				case SIMBOLO:
@@ -117,6 +128,29 @@ int main(int argc, char **argv)
 					proximo.linha, proximo.coluna, simbolos[proximo.valor]);
 					
 					/* Construcao da Lista de Tokens */
+					if ( (strcmp(simbolos[proximo.valor], simbolos[9])  == 0) || // <
+						 (strcmp(simbolos[proximo.valor], simbolos[12]) == 0) )  // >
+						 	auxTokenListNode.setTokenType( _OP_RELACIONAL );
+						 	else
+					 		if ( (strcmp(simbolos[proximo.valor], simbolos[0])  == 0) || // -
+					 			 (strcmp(simbolos[proximo.valor], simbolos[13]) == 0) || // +
+					 			 (strcmp(simbolos[proximo.valor], simbolos[14]) == 0) )	 // *
+					 			 	auxTokenListNode.setTokenType( _OP_ARITMETICO );
+					 			 	else
+				 			 		if ( (strcmp(simbolos[proximo.valor], simbolos[1])  == 0) || // .
+				 			 			 (strcmp(simbolos[proximo.valor], simbolos[2]) == 0) || // ,
+				 			 			 (strcmp(simbolos[proximo.valor], simbolos[6]) == 0) || // :
+				 			 			 (strcmp(simbolos[proximo.valor], simbolos[3]) == 0) )  // ;
+				 			 			 	auxTokenListNode.setTokenType( _PONTUACAO );
+				 			 			 	else
+						 			 		if ( (strcmp(simbolos[proximo.valor], simbolos[4])  == 0) || // (
+						 			 			 (strcmp(simbolos[proximo.valor], simbolos[5])  == 0) || // )
+						 			 			 (strcmp(simbolos[proximo.valor], simbolos[15]) == 0) || // [
+						 			 			 (strcmp(simbolos[proximo.valor], simbolos[16]) == 0) )  // ]
+						 			 			 	auxTokenListNode.setTokenType( _SIMBOLOS );
+						 			 			 	
+					auxTokenListNode.setTokenValue(reservadas[proximo.valor]);
+					auxTokenListNode.setLine(proximo.linha);										 
 					
 					break;
 				case SIMBOLO_COMP:
@@ -124,6 +158,17 @@ int main(int argc, char **argv)
 					proximo.linha, proximo.coluna, simbolos[proximo.valor]);
 					
 					/* Construcao da Lista de Tokens */
+					if ( (strcmp(simbolos[proximo.valor], simbolos[8])  == 0) || // <>
+						 (strcmp(simbolos[proximo.valor], simbolos[10]) == 0) || // <=			 		 
+						 (strcmp(simbolos[proximo.valor], simbolos[11]) == 0) )  // >=
+						 	auxTokenListNode.setTokenType( _OP_RELACIONAL );						 	
+						 	else
+					 		if ( (strcmp(simbolos[proximo.valor], simbolos[17])  == 0) || // :=					 			 
+					 			 (strcmp(simbolos[proximo.valor], simbolos[18]) == 0) )	  // ..
+					 			 	auxTokenListNode.setTokenType( _SIMBOLOS );
+					 			 	
+					auxTokenListNode.setTokenValue(reservadas[proximo.valor]);
+					auxTokenListNode.setLine(proximo.linha);					 			 	
 					
 					break;
 				case BOLEANO:
@@ -140,6 +185,8 @@ int main(int argc, char **argv)
 					ntokens--;
 					break;
 			}
+			/* insere TokenNode na Lista de Tokens */
+			tokenList.push_back(auxTokenListNode);   // <<<<  SAIDA DO LEXICO
 		}
 	}
 	while (proximo.tipo != TERMINO);
