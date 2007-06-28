@@ -28,9 +28,9 @@ HashNode IdentHash::search( char* key ) {
             return *it;
         }
     }
-    it = NULL;
+    HashNode null;
     // retorna nulo caso a busca tenha falhado
-    return *it;
+    return null;
     
 }
 
