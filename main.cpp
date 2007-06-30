@@ -204,17 +204,18 @@ int main(int argc, char **argv)
 	
 	//CHAMAR SINTATICO AQUI
 	// Reimprimindo a lista...
-	 for (unsigned int d = 0 ; d <= tokenList.size() ; d++)
-	 {
-	 	auxTokenListNode = tokenList.front();
-	 	std::cout << auxTokenListNode.getTokenType();
-	 	if (auxTokenListNode.getValueString() != "\0")
-	 		std::cout << "\t" << auxTokenListNode.getValueString() << std::endl;
-	 	else
-	 		std::cout << "\t" << auxTokenListNode.getValueInt() << std::endl;
-	 		
-	 	//tokenList.pop_front();
-	 }
+	 
+	 // iterador para lista
+	 std::list<TokenListNode>::iterator it;
+	 
+	 for ( it = tokenList.begin(); it != tokenList.end(); it++ ) {
+            
+        std::cout << it->getTokenType();
+        if ( it->getValueString() != "\0" )
+        	std::cout << "\t" << it->getValueString() << std::endl;
+        else
+        	std::cout << "\t" << it->getValueInt() << std::endl;
+     }
 	 
 	 std::cout << "Tamanho tokenList: " << tokenList.size() << std::endl;
 	 
