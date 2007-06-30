@@ -11,7 +11,7 @@
  */
  
 enum TokenType{ _NUMERO, _IDENTIFICADOR, _OP_LOGICO, _OP_RELACIONAL, 
-	_OP_ARITMETICO, _BOLEANO, _PAL_RESERVADA, _PONTUACAO, _SIMBOLOS };
+	_OP_ARITMETICO, _BOLEANO, _PAL_RESERVADA, _PONTUACAO, _SIMBOLOS, _DATATYPE };
 	
 	/* numero : pode ser 2345 ou -6372 por exemplo */
 	/* identificador : variaveis, nomes de procedimentos e nomes de funcao */
@@ -19,10 +19,10 @@ enum TokenType{ _NUMERO, _IDENTIFICADOR, _OP_LOGICO, _OP_RELACIONAL,
 	/* op_relacional : >, >=, <, <=, = e <> */
 	/* op_aritmerico: +, - ,* e div */
 	/* boleano: true e false */
-	/* pal_reservada: program, begin, end, label, type, array, of, var, procedure, function, if, then, else,
-	 * 				  while, do, case, record, uses, integer */
+	/* pal_reservada: program, begin, end, var, procedure, function, if, then, else,
+	 * 				  while, do, integer, boolean */
 	/* pontuacao: .,,,;,: */
-	/* simbolos: [,],(,),..,:= */
+	/* simbolos: (,),:= */
 
 class TokenListNode
 {
