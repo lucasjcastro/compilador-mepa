@@ -213,7 +213,7 @@ int main(int argc, char **argv)
 	 	else
 	 		std::cout << "\t" << auxTokenListNode.getValueInt() << std::endl;
 	 		
-	 	tokenList.pop_front();
+	 	//tokenList.pop_front();
 	 }
 	 
 	 std::cout << "Tamanho tokenList: " << tokenList.size() << std::endl;
