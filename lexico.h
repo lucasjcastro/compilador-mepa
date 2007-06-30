@@ -34,7 +34,7 @@
 #define N_SIMBOLOS		19
 
 //quantidade de palavras reservadas
-#define N_RESERVADAS	25
+#define N_RESERVADAS	18
 
 //constante para o tamanho maximo de uma palavra a ser lida
 #define MAX_CHAR    	32
@@ -48,12 +48,12 @@ FILE *arquivo;
 int linha, coluna;
 
 //Simbolos
-const char *simbolos[] = {"-",".",",",";","(",")",":","=","<>","<","<=",">=",">","+","*","[","]",":=",".."};
+const char *simbolos[] = {"-",".",",",";","(",")",":","=",
+						"<>","<","<=",">=",">","+","*",":="};
 
 //Palavras reservadas
-const char *reservadas[] = {"false", "true", "program", "begin", "end", "label",
- "type", "array", "of", "var", "procedure", "function", "if", "then", "else",
- "while", "do", "or", "and", "div", "not", "case", "record", "uses", "integer"};
+const char *reservadas[] = {"false", "true", "program", "begin", "end", "var", "procedure", "function",
+	"if", "then", "else", "while", "do", "or", "and", "div", "not", "integer", "boolean"};
 
 //Prototipos
 extern int analiseLexica(FILE *entrada, struct Fila *fila);

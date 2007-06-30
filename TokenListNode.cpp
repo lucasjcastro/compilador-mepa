@@ -2,6 +2,8 @@
 
 TokenListNode::TokenListNode()
 {
+	this->mLine = 0;		
+	this->mValueString = "\0";
 }
 
 TokenListNode::~TokenListNode()

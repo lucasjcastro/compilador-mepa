@@ -4,6 +4,8 @@
 #include "TokenListNode.h"
 #include <list>
 #include <string>
+#include <iterator>
+#include <iostream>
 
 int main(int argc, char **argv)
 {
@@ -47,6 +49,8 @@ int main(int argc, char **argv)
 	do
 	{
 		desenfilera(tokens, &proximo);
+		auxTokenListNode.setTokenValue("\0");
+		auxTokenListNode.setTokenValue(-99199);
 
 		if (proximo.tipo == ERRO)
 		{
@@ -107,20 +111,24 @@ int main(int argc, char **argv)
 					proximo.linha, proximo.coluna, reservadas[proximo.valor]);
 					
 					/* Construcao da Lista de Tokens */
-					/* Se for or, and ou not, tipo eh op_LOGICO */
-					if ( (strcmp(reservadas[proximo.valor], reservadas[17]) == 0 ) || // or
-						 (strcmp(reservadas[proximo.valor], reservadas[18]) == 0 ) || // and
-						 (strcmp(reservadas[proximo.valor], reservadas[20]) == 0 ) )  // not
+					/* Se for or, and ou not, tipo eh op_logico */
+					if ( (strcmp(reservadas[proximo.valor], reservadas[13]) == 0 ) || // or
+						 (strcmp(reservadas[proximo.valor], reservadas[14]) == 0 ) || // and
+						 (strcmp(reservadas[proximo.valor], reservadas[16]) == 0 ) )  // not
 						  	auxTokenListNode.setTokenType( _OP_LOGICO );
 						  	/* Se for div eh op_aritmetico */
-							else if (strcmp(reservadas[proximo.valor], reservadas[19]) == 0 ) // div
+							else if (strcmp(reservadas[proximo.valor], reservadas[15]) == 0 ) // div
 						 			auxTokenListNode.setTokenType( _OP_ARITMETICO );
-						 			else
-						 				auxTokenListNode.setTokenType( _PAL_RESERVADA );
-							
+						 			/* Se for integer ou boolean eh _datatype */
+						 			else if ( (strcmp(reservadas[proximo.valor], reservadas[17])  == 0) || // integer
+						 					  (strcmp(reservadas[proximo.valor], reservadas[18]) == 0) )  // boolean
+						 						auxTokenListNode.setTokenType( _DATATYPE );
+						 						else /* qq outra palavra reservada */
+						 						  auxTokenListNode.setTokenType( _PAL_RESERVADA );
+						 				
+					/* Depois de redefinido o tipo do token, grava os dados */	 											
 					auxTokenListNode.setTokenValue(reservadas[proximo.valor]);
-					auxTokenListNode.setLine(proximo.linha);
-						 
+					auxTokenListNode.setLine(proximo.linha);						 
 					
 					break;
 				case SIMBOLO:
@@ -137,19 +145,17 @@ int main(int argc, char **argv)
 					 			 (strcmp(simbolos[proximo.valor], simbolos[14]) == 0) )	 // *
 					 			 	auxTokenListNode.setTokenType( _OP_ARITMETICO );
 					 			 	else
-				 			 		if ( (strcmp(simbolos[proximo.valor], simbolos[1])  == 0) || // .
+				 			 		if ( (strcmp(simbolos[proximo.valor], simbolos[1]) == 0) || // .
 				 			 			 (strcmp(simbolos[proximo.valor], simbolos[2]) == 0) || // ,
 				 			 			 (strcmp(simbolos[proximo.valor], simbolos[6]) == 0) || // :
 				 			 			 (strcmp(simbolos[proximo.valor], simbolos[3]) == 0) )  // ;
 				 			 			 	auxTokenListNode.setTokenType( _PONTUACAO );
 				 			 			 	else
 						 			 		if ( (strcmp(simbolos[proximo.valor], simbolos[4])  == 0) || // (
-						 			 			 (strcmp(simbolos[proximo.valor], simbolos[5])  == 0) || // )
-						 			 			 (strcmp(simbolos[proximo.valor], simbolos[15]) == 0) || // [
-						 			 			 (strcmp(simbolos[proximo.valor], simbolos[16]) == 0) )  // ]
+						 			 			 (strcmp(simbolos[proximo.valor], simbolos[5])  == 0) )  // )						 			 			 
 						 			 			 	auxTokenListNode.setTokenType( _SIMBOLOS );
 						 			 			 	
-					auxTokenListNode.setTokenValue(reservadas[proximo.valor]);
+					auxTokenListNode.setTokenValue(simbolos[proximo.valor]);
 					auxTokenListNode.setLine(proximo.linha);										 
 					
 					break;
@@ -163,11 +169,9 @@ int main(int argc, char **argv)
 						 (strcmp(simbolos[proximo.valor], simbolos[11]) == 0) )  // >=
 						 	auxTokenListNode.setTokenType( _OP_RELACIONAL );						 	
 						 	else
-					 		if ( (strcmp(simbolos[proximo.valor], simbolos[17])  == 0) || // :=					 			 
-					 			 (strcmp(simbolos[proximo.valor], simbolos[18]) == 0) )	  // ..
-					 			 	auxTokenListNode.setTokenType( _SIMBOLOS );
+					 		 	auxTokenListNode.setTokenType( _SIMBOLOS ); // soh sobrou o :=
 					 			 	
-					auxTokenListNode.setTokenValue(reservadas[proximo.valor]);
+					auxTokenListNode.setTokenValue(simbolos[proximo.valor]);
 					auxTokenListNode.setLine(proximo.linha);					 			 	
 					
 					break;
@@ -186,7 +190,8 @@ int main(int argc, char **argv)
 					break;
 			}
 			/* insere TokenNode na Lista de Tokens */
-			tokenList.push_back(auxTokenListNode);   // <<<<  SAIDA DO LEXICO
+			if ( proximo.tipo != IGNORA)
+				tokenList.push_back(auxTokenListNode);   // <<<<  SAIDA DO LEXICO
 		}
 	}
 	while (proximo.tipo != TERMINO);
@@ -196,6 +201,25 @@ int main(int argc, char **argv)
 	fclose(entrada);
 
 	printf("\n\tN. Tokens:\t%d\n\n", ntokens);
+	
+	//CHAMAR SINTATICO AQUI
+	// Reimprimindo a lista...
+	 for (unsigned int d = 0 ; d <= tokenList.size() ; d++)
+	 {
+	 	auxTokenListNode = tokenList.front();
+	 	std::cout << auxTokenListNode.getTokenType();
+	 	if (auxTokenListNode.getValueString() != "\0")
+	 		std::cout << "\t" << auxTokenListNode.getValueString() << std::endl;
+	 	else
+	 		std::cout << "\t" << auxTokenListNode.getValueInt() << std::endl;
+	 		
+	 	tokenList.pop_front();
+	 }
+	 
+	 std::cout << "Tamanho tokenList: " << tokenList.size() << std::endl;
+	 
+	 std::string letra;
+	 
 
     //system("PAUSE");
 	return 0;

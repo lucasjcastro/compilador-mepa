@@ -222,16 +222,21 @@ Sintatico::chamadaFuncao()
 	
 }
 
+/** 32.
+ * 		<numero> ::= <digito>{<digito>}
+ */
 bool
 Sintatico::numero()
 {
-	
-}
-
-bool
-Sintatico::digito()
-{
-	
+	if( currentToken.getTokenType() == _NUMERO )
+    {
+    	nextToken();
+    	return true;
+    }
+    else
+    {
+    	return false;
+    }	
 }
 
 void
@@ -240,8 +245,3 @@ Sintatico::identificador()
 	
 }
 
-bool
-Sintatico::letra()
-{
-	
-}
